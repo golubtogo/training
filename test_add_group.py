@@ -8,7 +8,7 @@ from selenium import webdriver
 from group import Group
 
 
-class TestAddProup(unittest.TestCase):
+class TestAddGroup(unittest.TestCase):
     def setUp(self):
         self.driver = webdriver.Firefox()
         self.driver.implicitly_wait(30)
