@@ -42,32 +42,39 @@ class TestAddNewUser(unittest.TestCase):
         driver.find_element_by_name("nickname").click()
         driver.find_element_by_name("nickname").clear()
         driver.find_element_by_name("nickname").send_keys("nickname")
-        driver.find_element_by_name("photo").click()
-        driver.find_element_by_name("photo").clear()
-        driver.find_element_by_name("photo").send_keys()
+        # add photo
+        driver.find_element_by_name("photo").send_keys("C:\\Users\\Nata\\PycharmProjects\\test_image.png")
+        # add title
         driver.find_element_by_name("title").click()
         driver.find_element_by_name("title").clear()
         driver.find_element_by_name("title").send_keys("title")
+        # add company
         driver.find_element_by_name("company").click()
         driver.find_element_by_name("company").clear()
         driver.find_element_by_name("company").send_keys("company")
+        # add address
         driver.find_element_by_name("address").click()
         driver.find_element_by_name("address").click()
         driver.find_element_by_name("address").clear()
         driver.find_element_by_name("address").send_keys("address\n+380111111111")
+        # add home
         driver.find_element_by_name("home").click()
         driver.find_element_by_name("home").clear()
         driver.find_element_by_name("home").send_keys("home")
+        # add mobile
         driver.find_element_by_name("mobile").click()
         driver.find_element_by_name("mobile").clear()
         driver.find_element_by_name("mobile").send_keys("mobile")
+        # add work
         driver.find_element_by_name("theform").click()
         driver.find_element_by_name("work").click()
         driver.find_element_by_name("work").clear()
         driver.find_element_by_name("work").send_keys("work")
+        # add fax
         driver.find_element_by_name("fax").click()
         driver.find_element_by_name("fax").clear()
         driver.find_element_by_name("fax").send_keys("fax")
+        # add email
         driver.find_element_by_name("email").click()
         driver.find_element_by_name("email").clear()
         driver.find_element_by_name("email").send_keys("e-mail")
@@ -77,9 +84,11 @@ class TestAddNewUser(unittest.TestCase):
         driver.find_element_by_name("email3").click()
         driver.find_element_by_name("email3").clear()
         driver.find_element_by_name("email3").send_keys("e-mail3")
+        # homepage
         driver.find_element_by_name("homepage").click()
         driver.find_element_by_name("homepage").clear()
         driver.find_element_by_name("homepage").send_keys("homepage")
+
         driver.find_element_by_name("bday").click()
         Select(driver.find_element_by_name("bday")).select_by_visible_text("1")
         driver.find_element_by_xpath("//option[3]").click()
