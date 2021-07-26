@@ -20,10 +20,8 @@ class TestAddNewUser(unittest.TestCase):
         driver.get("http://localhost/addressbook/edit.php")
         # login
         driver.find_element_by_name("user").click()
-
         driver.find_element_by_name("user").send_keys("admin")
         driver.find_element_by_name("pass").click()
-
         driver.find_element_by_name("pass").send_keys("secret")
         driver.find_element_by_css_selector("input[type=\"submit\"]").click()
         # add new user
@@ -84,41 +82,50 @@ class TestAddNewUser(unittest.TestCase):
         driver.find_element_by_name("email3").click()
         driver.find_element_by_name("email3").clear()
         driver.find_element_by_name("email3").send_keys("e-mail3")
-        # homepage
+        # add homepage
         driver.find_element_by_name("homepage").click()
         driver.find_element_by_name("homepage").clear()
         driver.find_element_by_name("homepage").send_keys("homepage")
-
+        # add bday
         driver.find_element_by_name("bday").click()
         Select(driver.find_element_by_name("bday")).select_by_visible_text("1")
         driver.find_element_by_xpath("//option[3]").click()
+        # add bmonth
         driver.find_element_by_name("bmonth").click()
         Select(driver.find_element_by_name("bmonth")).select_by_visible_text("January")
         driver.find_element_by_xpath("//select[2]/option[2]").click()
-        driver.find_element_by_name("theform").click()
+        # add byear
         driver.find_element_by_name("byear").click()
         driver.find_element_by_name("byear").clear()
         driver.find_element_by_name("byear").send_keys("2000")
+        # add aday
         driver.find_element_by_name("aday").click()
         Select(driver.find_element_by_name("aday")).select_by_visible_text("1")
         driver.find_element_by_xpath("//select[3]/option[3]").click()
+        # add amonth
         driver.find_element_by_name("amonth").click()
         Select(driver.find_element_by_name("amonth")).select_by_visible_text("February")
         driver.find_element_by_xpath("//select[4]/option[3]").click()
+        # add ayear
         driver.find_element_by_name("ayear").click()
         driver.find_element_by_name("ayear").clear()
         driver.find_element_by_name("ayear").send_keys("2015")
+        # choose group
         driver.find_element_by_name("new_group").click()
         driver.find_element_by_xpath("//option[@value='[none]']").click()
+        # add address2
         driver.find_element_by_name("address2").click()
         driver.find_element_by_name("address2").clear()
         driver.find_element_by_name("address2").send_keys("secondary address")
+        # add phone2
         driver.find_element_by_name("phone2").click()
         driver.find_element_by_name("phone2").clear()
         driver.find_element_by_name("phone2").send_keys("secondary home")
+        # add notes
         driver.find_element_by_name("notes").click()
         driver.find_element_by_name("notes").clear()
         driver.find_element_by_name("notes").send_keys("hello")
+        # submit
         driver.find_element_by_xpath("//input[21]").click()
     
     def is_element_present(self, how, what):
