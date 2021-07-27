@@ -66,33 +66,33 @@ class TestAddNewUser(unittest.TestCase):
         driver.find_element_by_name("new_group").click()
         driver.find_element_by_xpath("//option[@value='[none]']").click()
 
-    def add_adate(self, driver, group):
-        # add ayear
+    def add_adate(self, driver, GroupAdate):
+        # add anniversary year
         driver.find_element_by_name("ayear").click()
         driver.find_element_by_name("ayear").clear()
-        driver.find_element_by_name("ayear").send_keys(group.a_year)
-        # add amonth
+        driver.find_element_by_name("ayear").send_keys(GroupAdate.a_year)
+        # add anniversary month
         driver.find_element_by_name("amonth").click()
-        Select(driver.find_element_by_name("amonth")).select_by_visible_text(group.a_month)
+        Select(driver.find_element_by_name("amonth")).select_by_visible_text(GroupAdate.a_month)
         driver.find_element_by_xpath("//select[4]/option[3]").click()
-        # add aday
+        # add anniversary day
         driver.find_element_by_name("aday").click()
-        Select(driver.find_element_by_name("aday")).select_by_visible_text(group.a_day)
+        Select(driver.find_element_by_name("aday")).select_by_visible_text(GroupAdate.a_day)
         driver.find_element_by_xpath("//select[3]/option[3]").click()
 
 
-    def add_bdate(self, driver, group):
-        # add byear
+    def add_bdate(self, driver, GroupBdate):
+        # add Birthday year
         driver.find_element_by_name("byear").click()
         driver.find_element_by_name("byear").clear()
-        driver.find_element_by_name("byear").send_keys(group.b_year)
-        # add bmonth
+        driver.find_element_by_name("byear").send_keys(GroupBdate.b_year)
+        # add Birthday month
         driver.find_element_by_name("bmonth").click()
-        Select(driver.find_element_by_name("bmonth")).select_by_visible_text(group.b_month)
+        Select(driver.find_element_by_name("bmonth")).select_by_visible_text(GroupBdate.b_month)
         driver.find_element_by_xpath("//select[2]/option[2]").click()
-        # add dday
+        # add birthday day
         driver.find_element_by_name("bday").click()
-        Select(driver.find_element_by_name("bday")).select_by_visible_text(group.b_day)
+        Select(driver.find_element_by_name("bday")).select_by_visible_text(GroupBdate.b_day)
         driver.find_element_by_xpath("//option[3]").click()
 
     def add_homepage(self, driver, homepage):
@@ -153,23 +153,23 @@ class TestAddNewUser(unittest.TestCase):
     def add_photo(self, driver, photo):
         driver.find_element_by_name("photo").send_keys(photo)
 
-    def add_name(self, driver, group):
+    def add_name(self, driver, GroupName):
         # add firstname
         driver.find_element_by_name("firstname").click()
         driver.find_element_by_name("firstname").clear()
-        driver.find_element_by_name("firstname").send_keys(group.firstname)
+        driver.find_element_by_name("firstname").send_keys(GroupName.firstname)
         # add middlename
         driver.find_element_by_name("middlename").click()
         driver.find_element_by_name("middlename").clear()
-        driver.find_element_by_name("middlename").send_keys(group.middlename)
+        driver.find_element_by_name("middlename").send_keys(GroupName.middlename)
         # add lastname
         driver.find_element_by_name("lastname").click()
         driver.find_element_by_name("lastname").clear()
-        driver.find_element_by_name("lastname").send_keys(group.lastname)
+        driver.find_element_by_name("lastname").send_keys(GroupName.lastname)
         # add nickname
         driver.find_element_by_name("nickname").click()
         driver.find_element_by_name("nickname").clear()
-        driver.find_element_by_name("nickname").send_keys(group.nickname)
+        driver.find_element_by_name("nickname").send_keys(GroupName.nickname)
 
     def add_new_user(self, driver):
         driver.find_element_by_link_text("add new").click()
