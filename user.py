@@ -1,12 +1,15 @@
-class UserName:
-    def __init__(self, firstname, middlename, lastname, nickname):
+class User:
+    def __init__(self, firstname, middlename, lastname, nickname,
+                 photo, title,
+                 company, address, home, mobile, work, fax, email, email_2, email_3, homepage,
+                 byear, bmonth, bday, ayear, amonth, aday,
+                 secondary_address, secondary_phone, notes):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
         self.nickname = nickname
-
-class UserContacts:
-    def __init__(self, company, address, home, mobile, work, fax, email, email_2, email_3, homepage):
+        self.photo = photo
+        self.title = title
         self.company = company
         self.address = address
         self.home = home
@@ -17,19 +20,12 @@ class UserContacts:
         self.email_2 = email_2
         self.email_3 = email_3
         self.homepage = homepage
-
-class UserDates:
-    def __init__(self, byear, bmonth, bday, ayear, amonth, aday):
         self.byear = byear
         self.bmonth = bmonth
         self.bday = bday
         self.ayear = ayear
         self.amonth = amonth
         self.aday = aday
-
-
-class UserSecondaryContacts:
-    def __init__(self, secondary_address, secondary_phone, notes):
         self.secondary_address = secondary_address
         self.secondary_phone = secondary_phone
         self.notes = notes
