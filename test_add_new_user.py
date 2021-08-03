@@ -5,200 +5,186 @@ from selenium.webdriver.support.ui import Select
 from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
-from group import GroupName
-from group import GroupEmail
-from group import GroupBdate
-from group import GroupAdate
+from user import UserName
+from user import UserContacts
+from user import UserDates
+from user import SecondaryContacts
+
+
 
 
 class TestAddNewUser(unittest.TestCase):
     def setUp(self):
-        self.driver = webdriver.Firefox()
-        self.driver.implicitly_wait(30)
+        self.wd = webdriver.Firefox()
+        self.wd.implicitly_wait(30)
         self.base_url = "https://www.google.com/"
         self.verificationErrors = []
         self.accept_next_alert = True
     
     def test_add_new_user(self):
-        driver = self.driver
-        self.open_home_page(driver)
-        self.login(driver, username="admin", password="secret")
-        self.add_new_user(driver)
-        self.add_name(driver, GroupName(firstname="first name", middlename="middle name", lastname="last name", nickname="nickname"))
-        self.add_photo(driver, photo="C:\\Users\\Nata\\PycharmProjects\\test_image.png")
-        self.add_title(driver, title="title")
-        self.add_company(driver, company="company")
-        self.add_address(driver, address_phone="address\n+380111111111")
-        self.add_home(driver, home="home")
-        self.add_mobile(driver, mobile="mobile")
-        self.add_work(driver, work="work")
-        self.add_fax(driver, fax="fax")
-        self.add_email(driver, GroupEmail(email="e-mail", email_2="e-mail2", email_3="e-mail3"))
-        self.add_homepage(driver, homepage="homepage")
-        self.add_bdate(driver, GroupBdate(b_year="2000", b_month="January", b_day="1"))
-        self.add_adate(driver, GroupAdate(a_year="2015", a_month="February", a_day="1"))
-        self.choose_group(driver)
-        self.add_secondary_address(driver, secondary_address="secondary address")
-        self.add_secondary_phone(driver, secondary_phone="secondary home")
-        self.add_notes(driver, notes="hello")
-        self.submit(driver)
+        wd = self.wd
+        self.open_home_page(wd)
+        self.login(wd, username="admin", password="secret")
+        self.add_new_user(wd)
+        self.add_name(wd, UserName(firstname="firstname", middlename="middlename", lastname="lastname", nickname="nickname"))
+        self.add_photo(wd, photo="C:\\Users\\Nata\\PycharmProjects\\test_image.png", title="title")
+        self.add_contacts(wd, UserContacts(company="company", address="address\n+380111111111", home="home", mobile="mobile", work="work", fax="fax", email="e-mail", email_2="e-mail2", email_3="e-mail3", homepage="homepage" ))
+        self.add_dates(wd, UserDates(byear="2000", bmonth="January", bday="1", ayear="2015", amonth="February", aday="1"))
+        self.choose_group(wd)
+        self.add_secondary_contacts(wd, SecondaryContacts(secondary_address="secondary address", secondary_phone="secondary home", notes="hello"))
+        self.submit(wd)
 
 
-    def submit(self, driver):
-        driver.find_element_by_xpath("//input[21]").click()
+    def submit(self, wd):
+        wd.find_element_by_xpath("//input[21]").click()
 
-    def add_notes(self, driver, notes):
-        driver.find_element_by_name("notes").click()
-        driver.find_element_by_name("notes").clear()
-        driver.find_element_by_name("notes").send_keys(notes)
-
-    def add_secondary_phone(self, driver, secondary_phone):
-        driver.find_element_by_name("phone2").click()
-        driver.find_element_by_name("phone2").clear()
-        driver.find_element_by_name("phone2").send_keys(secondary_phone)
-
-    def add_secondary_address(self, driver, secondary_address):
-        driver.find_element_by_name("address2").click()
-        driver.find_element_by_name("address2").clear()
-        driver.find_element_by_name("address2").send_keys(secondary_address)
-
-    def choose_group(self, driver):
-        driver.find_element_by_name("new_group").click()
-        driver.find_element_by_xpath("//option[@value='[none]']").click()
-
-    def add_adate(self, driver, GroupAdate):
-        # add anniversary year
-        driver.find_element_by_name("ayear").click()
-        driver.find_element_by_name("ayear").clear()
-        driver.find_element_by_name("ayear").send_keys(GroupAdate.a_year)
-        # add anniversary month
-        driver.find_element_by_name("amonth").click()
-        Select(driver.find_element_by_name("amonth")).select_by_visible_text(GroupAdate.a_month)
-        driver.find_element_by_xpath("//select[4]/option[3]").click()
-        # add anniversary day
-        driver.find_element_by_name("aday").click()
-        Select(driver.find_element_by_name("aday")).select_by_visible_text(GroupAdate.a_day)
-        driver.find_element_by_xpath("//select[3]/option[3]").click()
+    def add_secondary_contacts(self, wd, user):
+        # add secondary address
+        wd.find_element_by_name("address2").click()
+        wd.find_element_by_name("address2").clear()
+        wd.find_element_by_name("address2").send_keys(user.secondary_address)
+        # add secondary phone
+        wd.find_element_by_name("phone2").click()
+        wd.find_element_by_name("phone2").clear()
+        wd.find_element_by_name("phone2").send_keys(user.secondary_phone)
+        # add notes
+        wd.find_element_by_name("notes").click()
+        wd.find_element_by_name("notes").clear()
+        wd.find_element_by_name("notes").send_keys(user.notes)
 
 
-    def add_bdate(self, driver, GroupBdate):
+    def choose_group(self, wd):
+        wd.find_element_by_name("new_group").click()
+        wd.find_element_by_xpath("//option[@value='[none]']").click()
+
+    def add_dates(self, wd, user):
         # add Birthday year
-        driver.find_element_by_name("byear").click()
-        driver.find_element_by_name("byear").clear()
-        driver.find_element_by_name("byear").send_keys(GroupBdate.b_year)
+        wd.find_element_by_name("byear").click()
+        wd.find_element_by_name("byear").clear()
+        wd.find_element_by_name("byear").send_keys(user.byear)
         # add Birthday month
-        driver.find_element_by_name("bmonth").click()
-        Select(driver.find_element_by_name("bmonth")).select_by_visible_text(GroupBdate.b_month)
-        driver.find_element_by_xpath("//select[2]/option[2]").click()
+        wd.find_element_by_name("bmonth").click()
+        Select(wd.find_element_by_name("bmonth")).select_by_visible_text(user.bmonth)
+        wd.find_element_by_xpath("//select[2]/option[2]").click()
         # add birthday day
-        driver.find_element_by_name("bday").click()
-        Select(driver.find_element_by_name("bday")).select_by_visible_text(GroupBdate.b_day)
-        driver.find_element_by_xpath("//option[3]").click()
+        wd.find_element_by_name("bday").click()
+        Select(wd.find_element_by_name("bday")).select_by_visible_text(user.bday)
+        wd.find_element_by_xpath("//option[3]").click()
+        # add anniversary year
+        wd.find_element_by_name("ayear").click()
+        wd.find_element_by_name("ayear").clear()
+        wd.find_element_by_name("ayear").send_keys(user.ayear)
+        # add anniversary month
+        wd.find_element_by_name("amonth").click()
+        Select(wd.find_element_by_name("amonth")).select_by_visible_text(user.amonth)
+        wd.find_element_by_xpath("//select[4]/option[3]").click()
+        # add anniversary day
+        wd.find_element_by_name("aday").click()
+        Select(wd.find_element_by_name("aday")).select_by_visible_text(user.aday)
+        wd.find_element_by_xpath("//select[3]/option[3]").click()
 
-    def add_homepage(self, driver, homepage):
-        driver.find_element_by_name("homepage").click()
-        driver.find_element_by_name("homepage").clear()
-        driver.find_element_by_name("homepage").send_keys(homepage)
 
-    def add_email(self, driver, GroupEmail):
+    def add_contacts(self, wd, UserContacts):
+        # add contacts
+        wd.find_element_by_name("company").click()
+        wd.find_element_by_name("company").clear()
+        wd.find_element_by_name("company").send_keys(UserContacts.company)
+        # add address
+        wd.find_element_by_name("address").click()
+        wd.find_element_by_name("address").click()
+        wd.find_element_by_name("address").clear()
+        wd.find_element_by_name("address").send_keys(UserContacts.address)
+        # add home number
+        wd.find_element_by_name("home").click()
+        wd.find_element_by_name("home").clear()
+        wd.find_element_by_name("home").send_keys(UserContacts.home)
+        # add mobile number
+        wd.find_element_by_name("mobile").click()
+        wd.find_element_by_name("mobile").clear()
+        wd.find_element_by_name("mobile").send_keys(UserContacts.mobile)
+        # add work number
+        wd.find_element_by_name("work").click()
+        wd.find_element_by_name("work").clear()
+        wd.find_element_by_name("work").send_keys(UserContacts.work)
+        # add fax number
+        wd.find_element_by_name("fax").click()
+        wd.find_element_by_name("fax").clear()
+        wd.find_element_by_name("fax").send_keys(UserContacts.fax)
         # add email
-        driver.find_element_by_name("email").click()
-        driver.find_element_by_name("email").clear()
-        driver.find_element_by_name("email").send_keys(GroupEmail.email)
+        wd.find_element_by_name("email").click()
+        wd.find_element_by_name("email").clear()
+        wd.find_element_by_name("email").send_keys(UserContacts.email)
         # add email 2
-        driver.find_element_by_name("email2").click()
-        driver.find_element_by_name("email2").clear()
-        driver.find_element_by_name("email2").send_keys(GroupEmail.email_2)
+        wd.find_element_by_name("email2").click()
+        wd.find_element_by_name("email2").clear()
+        wd.find_element_by_name("email2").send_keys(UserContacts.email_2)
         # add email 3
-        driver.find_element_by_name("email3").click()
-        driver.find_element_by_name("email3").clear()
-        driver.find_element_by_name("email3").send_keys(GroupEmail.email_3)
+        wd.find_element_by_name("email3").click()
+        wd.find_element_by_name("email3").clear()
+        wd.find_element_by_name("email3").send_keys(UserContacts.email_3)
+        # add homepage
+        wd.find_element_by_name("homepage").click()
+        wd.find_element_by_name("homepage").clear()
+        wd.find_element_by_name("homepage").send_keys(UserContacts.homepage)
 
-    def add_fax(self, driver, fax):
-        driver.find_element_by_name("fax").click()
-        driver.find_element_by_name("fax").clear()
-        driver.find_element_by_name("fax").send_keys(fax)
 
-    def add_work(self, driver, work):
-        driver.find_element_by_name("work").click()
-        driver.find_element_by_name("work").clear()
-        driver.find_element_by_name("work").send_keys(work)
+    def add_photo(self, wd, photo, title):
+        # add photo
+        wd.find_element_by_name("photo").send_keys(photo)
+        # add title
+        wd.find_element_by_name("title").click()
+        wd.find_element_by_name("title").clear()
+        wd.find_element_by_name("title").send_keys(title)
 
-    def add_mobile(self, driver, mobile):
-        driver.find_element_by_name("mobile").click()
-        driver.find_element_by_name("mobile").clear()
-        driver.find_element_by_name("mobile").send_keys(mobile)
 
-    def add_home(self, driver, home):
-        driver.find_element_by_name("home").click()
-        driver.find_element_by_name("home").clear()
-        driver.find_element_by_name("home").send_keys(home)
-
-    def add_address(self, driver, address_phone):
-        driver.find_element_by_name("address").click()
-        driver.find_element_by_name("address").click()
-        driver.find_element_by_name("address").clear()
-        driver.find_element_by_name("address").send_keys(address_phone)
-
-    def add_company(self, driver, company):
-        driver.find_element_by_name("company").click()
-        driver.find_element_by_name("company").clear()
-        driver.find_element_by_name("company").send_keys(company)
-
-    def add_title(self, driver, title):
-        driver.find_element_by_name("title").click()
-        driver.find_element_by_name("title").clear()
-        driver.find_element_by_name("title").send_keys(title)
-
-    def add_photo(self, driver, photo):
-        driver.find_element_by_name("photo").send_keys(photo)
-
-    def add_name(self, driver, GroupName):
+    def add_name(self, wd, user):
         # add firstname
-        driver.find_element_by_name("firstname").click()
-        driver.find_element_by_name("firstname").clear()
-        driver.find_element_by_name("firstname").send_keys(GroupName.firstname)
+        wd.find_element_by_name("firstname").click()
+        wd.find_element_by_name("firstname").clear()
+        wd.find_element_by_name("firstname").send_keys(user.firstname)
         # add middlename
-        driver.find_element_by_name("middlename").click()
-        driver.find_element_by_name("middlename").clear()
-        driver.find_element_by_name("middlename").send_keys(GroupName.middlename)
+        wd.find_element_by_name("middlename").click()
+        wd.find_element_by_name("middlename").clear()
+        wd.find_element_by_name("middlename").send_keys(user.middlename)
         # add lastname
-        driver.find_element_by_name("lastname").click()
-        driver.find_element_by_name("lastname").clear()
-        driver.find_element_by_name("lastname").send_keys(GroupName.lastname)
+        wd.find_element_by_name("lastname").click()
+        wd.find_element_by_name("lastname").clear()
+        wd.find_element_by_name("lastname").send_keys(user.lastname)
         # add nickname
-        driver.find_element_by_name("nickname").click()
-        driver.find_element_by_name("nickname").clear()
-        driver.find_element_by_name("nickname").send_keys(GroupName.nickname)
+        wd.find_element_by_name("nickname").click()
+        wd.find_element_by_name("nickname").clear()
+        wd.find_element_by_name("nickname").send_keys(user.nickname)
 
-    def add_new_user(self, driver):
-        driver.find_element_by_link_text("add new").click()
 
-    def login(self, driver, username, password):
-        driver.find_element_by_name("user").click()
-        driver.find_element_by_name("user").clear()
-        driver.find_element_by_name("user").send_keys(username)
-        driver.find_element_by_name("pass").click()
-        driver.find_element_by_name("pass").clear()
-        driver.find_element_by_name("pass").send_keys(password)
-        driver.find_element_by_css_selector("input[type=\"submit\"]").click()
+    def add_new_user(self, wd):
+        wd.find_element_by_link_text("add new").click()
 
-    def open_home_page(self, driver):
-        driver.get("http://localhost/addressbook/edit.php")
+
+    def login(self, wd, username, password):
+        wd.find_element_by_name("user").click()
+        wd.find_element_by_name("user").clear()
+        wd.find_element_by_name("user").send_keys(username)
+        wd.find_element_by_name("pass").click()
+        wd.find_element_by_name("pass").clear()
+        wd.find_element_by_name("pass").send_keys(password)
+        wd.find_element_by_css_selector("input[type=\"submit\"]").click()
+
+    def open_home_page(self, wd):
+        wd.get("http://localhost/addressbook/edit.php")
 
     def is_element_present(self, how, what):
-        try: self.driver.find_element(by=how, value=what)
+        try: self.wd.find_element(by=how, value=what)
         except NoSuchElementException as e: return False
         return True
     
     def is_alert_present(self):
-        try: self.driver.switch_to_alert()
+        try: self.wd.switch_to_alert()
         except NoAlertPresentException as e: return False
         return True
     
 
     def tearDown(self):
-        self.driver.quit()
+        self.wd.quit()
         self.assertEqual([], self.verificationErrors)
 
 if __name__ == "__main__":
