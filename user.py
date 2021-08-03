@@ -28,7 +28,7 @@ class UserDates:
         self.aday = aday
 
 
-class SecondaryContacts:
+class UserSecondaryContacts:
     def __init__(self, secondary_address, secondary_phone, notes):
         self.secondary_address = secondary_address
         self.secondary_phone = secondary_phone

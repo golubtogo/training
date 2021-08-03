@@ -8,7 +8,7 @@ import unittest
 from user import UserName
 from user import UserContacts
 from user import UserDates
-from user import SecondaryContacts
+from user import UserSecondaryContacts
 
 
 
@@ -31,8 +31,10 @@ class TestAddNewUser(unittest.TestCase):
         self.add_contacts(wd, UserContacts(company="company", address="address\n+380111111111", home="home", mobile="mobile", work="work", fax="fax", email="e-mail", email_2="e-mail2", email_3="e-mail3", homepage="homepage" ))
         self.add_dates(wd, UserDates(byear="2000", bmonth="January", bday="1", ayear="2015", amonth="February", aday="1"))
         self.choose_group(wd)
-        self.add_secondary_contacts(wd, SecondaryContacts(secondary_address="secondary address", secondary_phone="secondary home", notes="hello"))
+        self.add_secondary_contacts(wd, UserSecondaryContacts(secondary_address="secondary address", secondary_phone="secondary home", notes="hello"))
         self.submit(wd)
+
+
 
 
     def submit(self, wd):
@@ -84,48 +86,48 @@ class TestAddNewUser(unittest.TestCase):
         wd.find_element_by_xpath("//select[3]/option[3]").click()
 
 
-    def add_contacts(self, wd, UserContacts):
+    def add_contacts(self, wd, user):
         # add contacts
         wd.find_element_by_name("company").click()
         wd.find_element_by_name("company").clear()
-        wd.find_element_by_name("company").send_keys(UserContacts.company)
+        wd.find_element_by_name("company").send_keys(user.company)
         # add address
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").click()
         wd.find_element_by_name("address").clear()
-        wd.find_element_by_name("address").send_keys(UserContacts.address)
+        wd.find_element_by_name("address").send_keys(user.address)
         # add home number
         wd.find_element_by_name("home").click()
         wd.find_element_by_name("home").clear()
-        wd.find_element_by_name("home").send_keys(UserContacts.home)
+        wd.find_element_by_name("home").send_keys(user.home)
         # add mobile number
         wd.find_element_by_name("mobile").click()
         wd.find_element_by_name("mobile").clear()
-        wd.find_element_by_name("mobile").send_keys(UserContacts.mobile)
+        wd.find_element_by_name("mobile").send_keys(user.mobile)
         # add work number
         wd.find_element_by_name("work").click()
         wd.find_element_by_name("work").clear()
-        wd.find_element_by_name("work").send_keys(UserContacts.work)
+        wd.find_element_by_name("work").send_keys(user.work)
         # add fax number
         wd.find_element_by_name("fax").click()
         wd.find_element_by_name("fax").clear()
-        wd.find_element_by_name("fax").send_keys(UserContacts.fax)
+        wd.find_element_by_name("fax").send_keys(user.fax)
         # add email
         wd.find_element_by_name("email").click()
         wd.find_element_by_name("email").clear()
-        wd.find_element_by_name("email").send_keys(UserContacts.email)
+        wd.find_element_by_name("email").send_keys(user.email)
         # add email 2
         wd.find_element_by_name("email2").click()
         wd.find_element_by_name("email2").clear()
-        wd.find_element_by_name("email2").send_keys(UserContacts.email_2)
+        wd.find_element_by_name("email2").send_keys(user.email_2)
         # add email 3
         wd.find_element_by_name("email3").click()
         wd.find_element_by_name("email3").clear()
-        wd.find_element_by_name("email3").send_keys(UserContacts.email_3)
+        wd.find_element_by_name("email3").send_keys(user.email_3)
         # add homepage
         wd.find_element_by_name("homepage").click()
         wd.find_element_by_name("homepage").clear()
-        wd.find_element_by_name("homepage").send_keys(UserContacts.homepage)
+        wd.find_element_by_name("homepage").send_keys(user.homepage)
 
 
     def add_photo(self, wd, photo, title):
