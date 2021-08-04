@@ -6,6 +6,8 @@ from selenium.common.exceptions import NoSuchElementException
 from selenium.common.exceptions import NoAlertPresentException
 import unittest
 from user import User
+import os
+
 
 
 
@@ -23,7 +25,7 @@ class TestAddNewUser(unittest.TestCase):
         self.login(wd, username="admin", password="secret")
         self.add_new_user(wd)
         self.add_user(wd, User(firstname="firstname", middlename="middlename", lastname="lastname", nickname="nickname",
-                               photo="C:\\Users\\Nata\\PycharmProjects\\test_image.png", title="title",
+                               photo=os.getcwd() + "\\images\\test_image.png", title="title",
                                company="company", address="address\n+380111111111",
                                home="home", mobile="mobile", work="work", fax="fax",
                                email="e-mail", email_2="e-mail2", email_3="e-mail3", homepage="homepage",
@@ -180,4 +182,4 @@ class TestAddNewUser(unittest.TestCase):
 
 
 if __name__ == "__main__":
-    unittest.main()
+   unittest.main()
