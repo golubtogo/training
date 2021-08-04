@@ -2,3 +2,4 @@ geckodriver.exe
 venv
 .pytest_cache
 .idea
+

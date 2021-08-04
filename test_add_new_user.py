@@ -9,11 +9,12 @@ import os
 @pytest.fixture
 def app(request):
     fixture = Application()
-    request.addfinalizer(fixture.destroy())
+    # request.addfinalizer(fixture.destroy())
     return fixture
 
 
 def test_add_new_user(app):
+    app.open_home_page()
     app.login(username="admin", password="secret")
     app.add_user(User(firstname="firstname", middlename="middlename", lastname="lastname", nickname="nickname",
                       photo=os.getcwd() + "\\images\\test_image.png", title="title",
