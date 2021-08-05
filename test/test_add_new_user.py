@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
 import pytest
-from user import User
-from application import Application
+from model.user import User
+from fixture.application import Application
 import os
 
 
@@ -14,8 +14,7 @@ def app(request):
 
 
 def test_add_new_user(app):
-    app.open_home_page()
-    app.login(username="admin", password="secret")
+    app.session.login(username="admin", password="secret")
     app.add_user(User(firstname="firstname", middlename="middlename", lastname="lastname", nickname="nickname",
                       photo=os.getcwd() + "\\images\\test_image.png", title="title",
                       company="company", address="address\n+380111111111",
@@ -26,4 +25,6 @@ def test_add_new_user(app):
                       ))
     app.choose_group()
     app.submit()
-    app.logout()
+    app.session.logout()
+
+

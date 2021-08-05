@@ -5,7 +5,7 @@ from selenium.common.exceptions import NoAlertPresentException
 import unittest
 
 from selenium import webdriver
-from group import Group
+from model.group import Group
 
 
 class TestAddGroup(unittest.TestCase):
