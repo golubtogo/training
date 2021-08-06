@@ -5,3 +5,7 @@ class Group:
         self.header = header
         self.footer = footer
 
+
+class GroupModify:
+    def __init__(self, modified_name):
+        self.modified_name = modified_name
