@@ -116,10 +116,7 @@ class UserHelper:
     def modify_first_user(self, user):
         wd = self.app.wd
         self.open_home_page()
-        # select first user
-        wd.find_element_by_name("selected[]").click()
-        # select edit
-        wd.find_element_by_xpath("//a[contains(@href,'edit.php?id=')]").click()
+        self.select_edit_user()
         # add lastname
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
@@ -163,7 +160,19 @@ class UserHelper:
         wd.find_element_by_name("email3").send_keys(user.new_email_3)
         # submit modification
         wd.find_element_by_name("update").click()
+
+    def select_edit_user(self):
+        wd = self.app.wd
+        # select first user
+        wd.find_element_by_name("selected[]").click()
+        # select edit
+        wd.find_element_by_xpath("//a[contains(@href,'edit.php?id=')]").click()
+
+    def delete_first_user(self):
+        wd = self.app.wd
         self.open_home_page()
+        self.select_edit_user()
+        wd.find_element_by_xpath("//form[input/@name='update']").click()
 
     def open_home_page(self):
         wd = self.app.wd
