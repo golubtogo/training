@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import Select
+import time
 
 
 class UserHelper:
@@ -116,7 +117,10 @@ class UserHelper:
     def modify_first_user(self, user):
         wd = self.app.wd
         self.open_home_page()
-        self.select_edit_user()
+        # select first user
+        wd.find_element_by_name("selected[]").click()
+        # select edit
+        wd.find_element_by_xpath("//a[contains(@href,'edit.php?id=')]").click()
         # add lastname
         wd.find_element_by_name("lastname").click()
         wd.find_element_by_name("lastname").clear()
@@ -161,18 +165,14 @@ class UserHelper:
         # submit modification
         wd.find_element_by_name("update").click()
 
-    def select_edit_user(self):
-        wd = self.app.wd
-        # select first user
-        wd.find_element_by_name("selected[]").click()
-        # select edit
-        wd.find_element_by_xpath("//a[contains(@href,'edit.php?id=')]").click()
-
     def delete_first_user(self):
         wd = self.app.wd
         self.open_home_page()
-        self.select_edit_user()
-        wd.find_element_by_xpath("//form[input/@name='update']").click()
+        # select first user
+        wd.find_element_by_name("selected[]").click()
+        # delete selected user
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
 
     def open_home_page(self):
         wd = self.app.wd
