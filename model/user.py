@@ -3,7 +3,11 @@ class User:
                  photo, title,
                  company, address, home, mobile, work, fax, email, email_2, email_3, homepage,
                  byear, bmonth, bday, ayear, amonth, aday,
-                 secondary_address, secondary_phone, notes):
+                 secondary_address, secondary_phone, notes,
+                 new_lastname, new_firstname,
+                 new_address,
+                 new_home, new_mobile, new_work, new_secondary_phone,
+                 new_email, new_email_2, new_email_3):
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -29,13 +33,6 @@ class User:
         self.secondary_address = secondary_address
         self.secondary_phone = secondary_phone
         self.notes = notes
-
-
-class UserModify:
-    def __init__(self, new_lastname, new_firstname,
-                 new_address,
-                 new_home, new_mobile, new_work, new_secondary_phone,
-                 new_email, new_email_2, new_email_3,):
         self.new_lastname = new_lastname
         self.new_firstname = new_firstname
         self.new_address = new_address
