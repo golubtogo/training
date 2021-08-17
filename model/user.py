@@ -1,13 +1,11 @@
 class User:
-    def __init__(self, firstname, middlename, lastname, nickname,
-                 photo, title,
-                 company, address, home, mobile, work, fax, email, email_2, email_3, homepage,
-                 byear, bmonth, bday, ayear, amonth, aday,
-                 secondary_address, secondary_phone, notes,
-                 new_lastname, new_firstname,
-                 new_address,
-                 new_home, new_mobile, new_work, new_secondary_phone,
-                 new_email, new_email_2, new_email_3):
+    def __init__(self, firstname=None, middlename=None, lastname=None, nickname=None,
+                 photo=None, title=None,
+                 company=None, address=None, home=None, mobile=None, work=None, fax=None, email=None,
+                 email2=None, email3=None, homepage=None,
+                 byear=None, bmonth=None, bday=None, ayear=None, amonth=None, aday=None,
+                 address2=None, phone2=None, notes=None, new_group=None):
+
         self.firstname = firstname
         self.middlename = middlename
         self.lastname = lastname
@@ -21,8 +19,8 @@ class User:
         self.work = work
         self.fax = fax
         self.email = email
-        self.email_2 = email_2
-        self.email_3 = email_3
+        self.email2 = email2
+        self.email3 = email3
         self.homepage = homepage
         self.byear = byear
         self.bmonth = bmonth
@@ -30,17 +28,8 @@ class User:
         self.ayear = ayear
         self.amonth = amonth
         self.aday = aday
-        self.secondary_address = secondary_address
-        self.secondary_phone = secondary_phone
+        self.address2 = address2
+        self.phone2 = phone2
         self.notes = notes
-        self.new_lastname = new_lastname
-        self.new_firstname = new_firstname
-        self.new_address = new_address
-        self.new_home = new_home
-        self.new_mobile = new_mobile
-        self.new_work = new_work
-        self.new_secondary_phone = new_secondary_phone
-        self.new_email = new_email
-        self.new_email_2 = new_email_2
-        self.new_email_3 = new_email_3
+        self.new_group = new_group
 
