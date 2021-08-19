@@ -66,7 +66,7 @@ class UserHelper:
         self.open_home_page()
         self.init_user_modification()
         self.fill_user_form(user)
-        self.submit()
+        self.update()
 
     def init_user_modification(self):
         wd = self.app.wd
@@ -88,3 +88,11 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//input[21]").click()
 
+    def update(self):
+        wd = self.app.wd
+        wd.find_element_by_name("update").click()
+
+    def count(self):
+        wd = self.app.wd
+        self.open_home_page()
+        return len(wd.find_elements_by_name("selected[]"))
