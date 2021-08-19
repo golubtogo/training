@@ -1,5 +1,4 @@
 from selenium.webdriver.support.ui import Select
-import time
 
 
 class UserHelper:
@@ -9,7 +8,8 @@ class UserHelper:
 
     def open_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
+        if not (wd.current_url.endswith("/addressbook/") and len(wd.find_elements_by_name("Send e-Mail")) > 0):
+            wd.find_element_by_link_text("home").click()
 
     def init_user_creation(self):
         wd = self.app.wd
