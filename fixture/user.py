@@ -7,14 +7,22 @@ class UserHelper:
     def __init__(self, app):
         self.app = app
 
-    def open_add_new_user(self):
+    def open_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home").click()
+
+    def init_user_creation(self):
         wd = self.app.wd
         wd.find_element_by_link_text("add new").click()
-        self.open_add_new_user()
 
-    def update_user(self, user):
+    def create_user(self, user):
+        self.open_home_page()
+        self.init_user_creation()
+        self.fill_user_form(user)
+        self.submit()
+
+    def change_field_value(self, user):
         wd = self.app.wd
-
         if user.photo:
             wd.find_element_by_name("photo").send_keys(user.photo)
 
@@ -46,12 +54,26 @@ class UserHelper:
 
         for label in user_data:
             value = user_data[label]
-            if value and not any(ext in label for ext in ["month", "day", "photo"]):
+            if value is not None and not any(ext in label for ext in ["month", "day", "photo", "new_group"]):
                 wd.find_element_by_name(label).click()
                 wd.find_element_by_name(label).clear()
                 wd.find_element_by_name(label).send_keys(value)
 
-        wd.find_element_by_name("submit").click()
+    def fill_user_form(self, user):
+        self.change_field_value(user)
+
+    def modify_first_user(self, user):
+        self.open_home_page()
+        self.init_user_modification()
+        self.fill_user_form(user)
+        self.submit()
+
+    def init_user_modification(self):
+        wd = self.app.wd
+        # select first user
+        wd.find_element_by_name("selected[]").click()
+        # click edit selected user
+        wd.find_element_by_xpath("//img[@alt='Edit']").click()
 
     def delete_first_user(self):
         wd = self.app.wd
@@ -61,10 +83,6 @@ class UserHelper:
         # delete selected user
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
-
-    def open_home_page(self):
-        wd = self.app.wd
-        wd.find_element_by_link_text("home").click()
 
     def submit(self):
         wd = self.app.wd
