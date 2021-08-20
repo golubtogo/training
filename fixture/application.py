@@ -18,7 +18,7 @@ class Application:
 
     def is_valid(self):
         try:
-            if self.wd.find_element_by_xpath("//div[@id='top']/form/b"):
+            if self.wd.find_element_by_xpath("//a[contains(text(),'Logout')]"):
                 return True
         except InvalidSelectorException:
             return False
