@@ -1,4 +1,6 @@
 from selenium import webdriver
+from selenium.common.exceptions import InvalidSelectorException
+
 from fixture.session import SessionHelper
 from fixture.user import UserHelper
 from fixture.group import GroupHelper
@@ -16,9 +18,9 @@ class Application:
 
     def is_valid(self):
         try:
-            self.wd.current_url
-            return True
-        except:
+            if self.wd.find_element_by_xpath("//div[@id='top']/form/b"):
+                return True
+        except InvalidSelectorException:
             return False
 
     def open_home_page(self):
