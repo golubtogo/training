@@ -1,5 +1,5 @@
 from selenium import webdriver
-from selenium.common.exceptions import InvalidSelectorException
+from selenium.common.exceptions import InvalidSelectorException, NoSuchElementException
 
 from fixture.session import SessionHelper
 from fixture.user import UserHelper
@@ -20,7 +20,7 @@ class Application:
         try:
             if self.wd.find_element_by_xpath("//a[contains(text(),'Logout')]"):
                 return True
-        except InvalidSelectorException:
+        except NoSuchElementException:
             return False
 
     def open_home_page(self):
