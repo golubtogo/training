@@ -3,4 +3,4 @@ venv
 .pytest_cache
 .idea
 geckodriver.log
-
+__pycache__

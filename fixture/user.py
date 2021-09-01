@@ -1,4 +1,5 @@
 from selenium.webdriver.support.ui import Select
+from model.user import User
 
 
 class UserHelper:
@@ -54,7 +55,7 @@ class UserHelper:
 
         for label in user_data:
             value = user_data[label]
-            if value is not None and not any(ext in label for ext in ["month", "day", "photo", "new_group"]):
+            if value is not None and not any(ext in label for ext in ["month", "day", "photo", "new_group", "id"]):
                 wd.find_element_by_name(label).click()
                 wd.find_element_by_name(label).clear()
                 wd.find_element_by_name(label).send_keys(value)
@@ -96,3 +97,15 @@ class UserHelper:
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    def get_user_list(self):
+        wd = self.app.wd
+        self.open_home_page()
+        users = []
+        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+            id = element.find_element_by_css_selector("td.center input").get_attribute("value")
+            lastname = element.find_elements_by_tag_name("td")[1].text
+            firstname = element.find_elements_by_tag_name("td")[2].text
+            users.append(User(firstname=firstname, lastname=lastname, id=id))
+        return users
+
