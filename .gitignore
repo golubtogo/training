@@ -1,0 +1,5 @@
+venv
+geckodriver.log
+.idea
+__pycache__
+geckodriver.exe
