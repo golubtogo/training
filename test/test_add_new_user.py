@@ -14,8 +14,8 @@ def test_add_new_user(app):
                 byear="2000", bmonth="January", bday="1", ayear="2015", amonth="February", aday="1",
                 address2="secondary address", phone2="secondary home", notes="hello", new_group="")
     app.user.create_user(user)
+    assert len(old_users) + 1 == app.user.count()
     new_users = app.user.get_user_list()
-    assert len(old_users) + 1 == len(new_users)
     old_users.append(user)
     assert sorted(old_users, key=User.id_or_max) == sorted(new_users, key=User.id_or_max)
 

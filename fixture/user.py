@@ -21,6 +21,7 @@ class UserHelper:
         self.init_user_creation()
         self.fill_user_form(user)
         self.submit()
+        self.user_cache = None
 
     def change_field_value(self, user):
         wd = self.app.wd
@@ -68,6 +69,7 @@ class UserHelper:
         self.init_user_modification()
         self.fill_user_form(user)
         self.update()
+        self.user_cache = None
 
     def init_user_modification(self):
         wd = self.app.wd
@@ -84,6 +86,7 @@ class UserHelper:
         # delete selected user
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        self.user_cache = None
 
     def submit(self):
         wd = self.app.wd
@@ -98,14 +101,17 @@ class UserHelper:
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
 
+    user_cache = None
+
     def get_user_list(self):
-        wd = self.app.wd
-        self.open_home_page()
-        users = []
-        for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-            id = element.find_element_by_css_selector("td.center input").get_attribute("value")
-            lastname = element.find_elements_by_tag_name("td")[1].text
-            firstname = element.find_elements_by_tag_name("td")[2].text
-            users.append(User(firstname=firstname, lastname=lastname, id=id))
-        return users
+        if self.user_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.user_cache = []
+            for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+                id = element.find_element_by_css_selector("td.center input").get_attribute("value")
+                lastname = element.find_elements_by_tag_name("td")[1].text
+                firstname = element.find_elements_by_tag_name("td")[2].text
+                self.user_cache.append(User(firstname=firstname, lastname=lastname, id=id))
+        return list(self.user_cache)
 
