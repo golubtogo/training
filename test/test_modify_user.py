@@ -1,21 +1,20 @@
 # -*- coding: utf-8 -*-
 
 from model.user import User
+from random import randrange
 
 
-def test_modify_first_user(app):
-    old_users = app.user.get_user_list()
+def test_modify_some_user(app):
     if app.user.count() == 0:
-        app.user.create_user(User())
-    user = User(lastname="new lastname", firstname="new firstname",
-                address="new address", home="new home", mobile="new mobile",
-                work="new work", phone2="secondary phone",
-                email="new_email", email2="new_email_2", email3="new_email_3")
-    user.id = old_users[0].id
-    app.user.modify_first_user(user)
-    assert len(old_users) == app.user.count()
+        app.user.create_user(User(lastname="test lastname mod", firstname="test firstname mod"))
+    old_users = app.user.get_user_list()
+    index = randrange(len(old_users))
+    user = User(lastname="new lastname", firstname="new firstname")
+    user.id = old_users[index].id
+    app.user.modify_user_by_index(index, user)
     new_users = app.user.get_user_list()
-    old_users[0] = user
+    assert len(old_users) == app.user.count()
+    old_users[index] = user
     assert sorted(old_users, key=User.id_or_max) == sorted(new_users, key=User.id_or_max)
 
 

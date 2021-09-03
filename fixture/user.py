@@ -1,3 +1,5 @@
+import time
+
 from selenium.webdriver.support.ui import Select
 from model.user import User
 
@@ -64,25 +66,36 @@ class UserHelper:
     def fill_user_form(self, user):
         self.change_field_value(user)
 
-    def modify_first_user(self, user):
+    def modify_first_user(self):
+        self.modify_user_by_index(0)
+
+    def modify_user_by_index(self, index, new_user_data):
+        wd = self.app.wd
         self.open_home_page()
-        self.init_user_modification()
-        self.fill_user_form(user)
+        self.select_user_by_index(index)
+        # open modification form
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+        self.fill_user_form(new_user_data)
         self.update()
+        self.return_to_home_page()
         self.user_cache = None
 
-    def init_user_modification(self):
+    def return_to_home_page(self):
         wd = self.app.wd
-        # select first user
-        wd.find_element_by_name("selected[]").click()
-        # click edit selected user
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        wd.find_element_by_link_text("home page").click()
+
+    def select_user_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def delete_first_user(self):
+        self.delete_user_by_index(0)
+
+    def delete_user_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
         # select first user
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # delete selected user
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
@@ -109,9 +122,9 @@ class UserHelper:
             self.open_home_page()
             self.user_cache = []
             for element in wd.find_elements_by_css_selector("tr[name=entry]"):
-                id = element.find_element_by_css_selector("td.center input").get_attribute("value")
                 lastname = element.find_elements_by_tag_name("td")[1].text
                 firstname = element.find_elements_by_tag_name("td")[2].text
-                self.user_cache.append(User(firstname=firstname, lastname=lastname, id=id))
+                id = element.find_element_by_css_selector("td.center input").get_attribute("value")
+                self.user_cache.append(User(lastname=lastname, firstname=firstname, id=id))
         return list(self.user_cache)
 
