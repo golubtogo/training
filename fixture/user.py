@@ -1,4 +1,7 @@
+import time
+
 from selenium.webdriver.support.ui import Select
+from model.user import User
 
 
 class UserHelper:
@@ -20,6 +23,7 @@ class UserHelper:
         self.init_user_creation()
         self.fill_user_form(user)
         self.submit()
+        self.user_cache = None
 
     def change_field_value(self, user):
         wd = self.app.wd
@@ -54,7 +58,7 @@ class UserHelper:
 
         for label in user_data:
             value = user_data[label]
-            if value is not None and not any(ext in label for ext in ["month", "day", "photo", "new_group"]):
+            if value is not None and not any(ext in label for ext in ["month", "day", "photo", "new_group", "id"]):
                 wd.find_element_by_name(label).click()
                 wd.find_element_by_name(label).clear()
                 wd.find_element_by_name(label).send_keys(value)
@@ -62,27 +66,40 @@ class UserHelper:
     def fill_user_form(self, user):
         self.change_field_value(user)
 
-    def modify_first_user(self, user):
-        self.open_home_page()
-        self.init_user_modification()
-        self.fill_user_form(user)
-        self.update()
+    def modify_first_user(self):
+        self.modify_user_by_index(0)
 
-    def init_user_modification(self):
+    def modify_user_by_index(self, index, new_user_data):
         wd = self.app.wd
-        # select first user
-        wd.find_element_by_name("selected[]").click()
-        # click edit selected user
-        wd.find_element_by_xpath("//img[@alt='Edit']").click()
+        self.open_home_page()
+        self.select_user_by_index(index)
+        # open modification form
+        wd.find_elements_by_xpath("//img[@alt='Edit']")[index].click()
+        self.fill_user_form(new_user_data)
+        self.update()
+        self.return_to_home_page()
+        self.user_cache = None
+
+    def return_to_home_page(self):
+        wd = self.app.wd
+        wd.find_element_by_link_text("home page").click()
+
+    def select_user_by_index(self, index):
+        wd = self.app.wd
+        wd.find_elements_by_name("selected[]")[index].click()
 
     def delete_first_user(self):
+        self.delete_user_by_index(0)
+
+    def delete_user_by_index(self, index):
         wd = self.app.wd
         self.open_home_page()
         # select first user
-        wd.find_element_by_name("selected[]").click()
+        wd.find_elements_by_name("selected[]")[index].click()
         # delete selected user
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()
+        self.user_cache = None
 
     def submit(self):
         wd = self.app.wd
@@ -96,3 +113,18 @@ class UserHelper:
         wd = self.app.wd
         self.open_home_page()
         return len(wd.find_elements_by_name("selected[]"))
+
+    user_cache = None
+
+    def get_user_list(self):
+        if self.user_cache is None:
+            wd = self.app.wd
+            self.open_home_page()
+            self.user_cache = []
+            for element in wd.find_elements_by_css_selector("tr[name=entry]"):
+                lastname = element.find_elements_by_tag_name("td")[1].text
+                firstname = element.find_elements_by_tag_name("td")[2].text
+                id = element.find_element_by_css_selector("td.center input").get_attribute("value")
+                self.user_cache.append(User(lastname=lastname, firstname=firstname, id=id))
+        return list(self.user_cache)
+

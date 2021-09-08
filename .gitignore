@@ -1,6 +1,5 @@
-geckodriver.exe
 venv
-.pytest_cache
-.idea
 geckodriver.log
-
+.idea
+__pycache__
+geckodriver.exe
