@@ -1,4 +1,5 @@
 from selenium import webdriver
+
 from fixture.session import SessionHelper
 from fixture.user import UserHelper
 from fixture.group import GroupHelper
@@ -9,7 +10,7 @@ class Application:
     def __init__(self):
         self.wd = webdriver.Firefox()
 
-        self.wd.implicitly_wait(1)
+        self.wd.implicitly_wait(10)
         self.session = SessionHelper(self)
         self.user = UserHelper(self)
         self.group = GroupHelper(self)
