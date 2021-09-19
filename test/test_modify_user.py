@@ -9,7 +9,7 @@ def test_modify_some_user(app):
         app.user.create_user(User(lastname="test lastname mod", firstname="test firstname mod"))
     old_users = app.user.get_user_list()
     index = randrange(len(old_users))
-    user = User(lastname="new lastname", firstname="new firstname")
+    user = User(lastname="new lastname 222", firstname="new firstname222", middlename="middlename222",)
     user.id = old_users[index].id
     app.user.modify_user_by_index(index, user)
     new_users = app.user.get_user_list()
