@@ -41,7 +41,12 @@ class User:
         self.all_emails_from_home_page = all_emails_from_home_page
 
     def __repr__(self):
-        return "%s:%s:%s" % (self.id, self.lastname, self.firstname)
+        return "%s:%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s;%s" % \
+               (self.id, self.lastname, self.middlename, self.firstname, self.nickname,  self.photo,
+                self.title, self.company, self.address, self.home, self.mobile, self.work, self.fax,
+                self.email, self.email2, self.email3, self.homepage,
+                self.byear, self.bmonth, self.bday, self.ayear, self.amonth, self.aday,
+                self.address2, self.phone2, self.notes, self.new_group)
 
     def __eq__(self, other):
         return (self.id is None or other.id is None or self.id == other.id) and self.lastname == other.lastname and self.firstname == other.firstname

@@ -3,7 +3,7 @@ import time
 
 from selenium.webdriver.support.ui import Select
 from model.user import User
-import time
+import random
 
 
 class UserHelper:
@@ -24,11 +24,8 @@ class UserHelper:
         self.open_home_page()
         self.init_user_creation()
         self.fill_user_form(user)
-        time.sleep(3)
         self.submit()
-        time.sleep(5)
         self.return_to_home_page()
-        time.sleep(3)
         self.user_cache = None
 
     def change_field_value(self, user):
@@ -39,22 +36,22 @@ class UserHelper:
         if user.bmonth:
             wd.find_element_by_name("bmonth").click()
             Select(wd.find_element_by_name("bmonth")).select_by_visible_text(user.bmonth)
-            wd.find_element_by_xpath("//select[2]/option[2]").click()
+#            wd.find_element_by_xpath("//select[2]/option[2]").click()
 
         if user.bday:
             wd.find_element_by_name("bday").click()
             Select(wd.find_element_by_name("bday")).select_by_visible_text(user.bday)
-            wd.find_element_by_xpath("//option[3]").click()
+#            wd.find_element_by_xpath("//option[3]").click()
 
         if user.amonth:
             wd.find_element_by_name("amonth").click()
             Select(wd.find_element_by_name("amonth")).select_by_visible_text(user.amonth)
-            wd.find_element_by_xpath("//select[4]/option[3]").click()
+#            wd.find_element_by_xpath("//select[4]/option[3]").click()
 
         if user.aday:
             wd.find_element_by_name("aday").click()
             Select(wd.find_element_by_name("aday")).select_by_visible_text(user.aday)
-            wd.find_element_by_xpath("//select[3]/option[3]").click()
+#            wd.find_element_by_xpath("//select[3]/option[3]").click()
 
         if user.new_group:
             wd.find_element_by_name("new_group").click()

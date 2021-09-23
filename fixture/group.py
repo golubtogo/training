@@ -14,6 +14,7 @@ class GroupHelper:
     def create_group(self, group):
         wd = self.app.wd
         self.open_groups_page()
+        before_group_list = self.get_group_list()
         self.init_group_creation()
         # fill group form
         self.fill_group_form(group)
@@ -21,6 +22,8 @@ class GroupHelper:
         wd.find_element_by_name("submit").click()
         self.return_to_groups_page()
         self.group_cache = None
+        after_group_list = self.get_group_list()
+        return (set([x.id for x in after_group_list]) - set([x.id for x in before_group_list])).pop()
 
     def init_group_creation(self):
         wd = self.app.wd
