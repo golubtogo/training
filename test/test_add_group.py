@@ -7,7 +7,7 @@ import string
 
 
 def random_string(prefix, maxlen):
-    symbols = string.ascii_letters + string.digits + " "*10  # some tests doesn't passes with string.punctuation
+    symbols = string.ascii_letters + string.digits + " "*10  # some tests don't pass with string.punctuation
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
@@ -16,7 +16,7 @@ testdata = [Group(group_name="", group_header="", group_footer="")] + [
           group_header=random_string("group_header", 20),
           group_footer=random_string("group_footer", 20)
           )
-    for i in range(5)
+    for i in range(1)
 
 ]
 

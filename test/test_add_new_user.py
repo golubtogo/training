@@ -39,10 +39,9 @@ def remove_whitespaces(user):
     user.email3 = user.email3.strip()
     user.address = user.address.strip()
 
-#     user_list = [user.firstname, user.lastname,
-#     user.home, user.mobile, user.work, user.phone2,
-#     user.email, user.email2, user.email3]
-#     return [i.strip() for i in user_list]
+    # for name in user.attributes:
+    #     setattr(user, name,  getattr(user, name).strip())
+    # return user
 
 
 test_user_data = [User(firstname="", middlename="", lastname="", nickname="",
@@ -52,7 +51,7 @@ test_user_data = [User(firstname="", middlename="", lastname="", nickname="",
                        email="", email2="", email3="", homepage="",
                        byear="", bmonth="", bday="", ayear="", amonth="", aday="",
                        address2="", phone2="", notes="", new_group="")] + [
-                     User(firstname=random_string("firstname", 5), middlename=random_string("middlename", 5),
+                     User(firstname=random_string(" firstname", 5), middlename=random_string("middlename", 5),
                           lastname=random_string("lastname", 5), nickname=random_string("nickname", 5),
                           photo=os.getcwd() + "\\images\\test_image.png", title=random_string("title", 10),
                           company=random_string("company", 5), address=random_string("address\n+380111111111", 10),
@@ -66,7 +65,7 @@ test_user_data = [User(firstname="", middlename="", lastname="", nickname="",
                           ayear=random_year(4), amonth=random_month(), aday=random_day(),
                           address2=random_string("secondary address", 10), phone2=random_string("+123456789", 5),
                           notes=random_string("hello", 10), new_group="")
-                     for i in range(5)
+                     for i in range(1)
                  ]
 
 
