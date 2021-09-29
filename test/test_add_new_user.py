@@ -51,7 +51,7 @@ test_user_data = [User(firstname="", middlename="", lastname="", nickname="",
                        email="", email2="", email3="", homepage="",
                        byear="", bmonth="", bday="", ayear="", amonth="", aday="",
                        address2="", phone2="", notes="", new_group="")] + [
-                     User(firstname=random_string(" firstname", 5), middlename=random_string("middlename", 5),
+                     User(firstname=random_string("firstname", 5), middlename=random_string("middlename", 5),
                           lastname=random_string("lastname", 5), nickname=random_string("nickname", 5),
                           photo=os.getcwd() + "\\images\\test_image.png", title=random_string("title", 10),
                           company=random_string("company", 5), address=random_string("address\n+380111111111", 10),
