@@ -67,7 +67,7 @@ testdata = [User(firstname="", middlename="", lastname="", nickname="",
                        address2="", phone2="", notes="", new_group="")] + [
                      User(firstname=random_string("firstname", 5), middlename=random_string("middlename", 5),
                           lastname=random_string("lastname", 5), nickname=random_string("nickname", 5),
-                          photo=os.path.abspath("C:\\Users\\Nata\\PycharmProjects\\training\\images\\test_image.png"),
+                          photo=os.getcwd() + "\\test_image.png",
                           title=random_string("title", 10),
                           company=random_string("company", 5), address=random_string("address\n+380111111111", 10),
                           home=random_string("+123456", 5), mobile=random_string("+1234567", 5),
