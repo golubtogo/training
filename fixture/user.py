@@ -85,6 +85,18 @@ class UserHelper:
         self.return_to_home_page()
         self.user_cache = None
 
+    def modify_user_by_id(self, id, new_user_data):
+        wd = self.app.wd
+        self.open_home_page()
+        self.select_user_by_id(id)
+        # open modification form
+        wd.find_elements_by_xpath("//img[@alt='Edit'][id='%s']" % id).click()
+        # wd.find_element_by_name("edit").click()
+        self.fill_user_form(new_user_data)
+        self.update()
+        self.return_to_home_page()
+        self.user_cache = None
+
     def return_to_home_page(self):
         wd = self.app.wd
         wd.find_element_by_link_text("home page").click()
@@ -92,6 +104,10 @@ class UserHelper:
     def select_user_by_index(self, index):
         wd = self.app.wd
         wd.find_elements_by_name("selected[]")[index].click()
+
+    def select_user_by_id(self, id):
+        wd = self.app.wd
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
 
     def delete_first_user(self):
         self.delete_user_by_index(0)
@@ -101,6 +117,16 @@ class UserHelper:
         self.open_home_page()
         # select first user
         wd.find_elements_by_name("selected[]")[index].click()
+        # delete selected user
+        wd.find_element_by_xpath("//input[@value='Delete']").click()
+        wd.switch_to_alert().accept()
+        self.user_cache = None
+
+    def delete_user_by_id(self, id):
+        wd = self.app.wd
+        self.open_home_page()
+        # select user
+        self.select_user_by_id(id)
         # delete selected user
         wd.find_element_by_xpath("//input[@value='Delete']").click()
         wd.switch_to_alert().accept()

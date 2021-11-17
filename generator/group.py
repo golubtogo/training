@@ -32,7 +32,7 @@ testdata = [Group(group_name="", group_header="", group_footer="")] + [
           group_header=random_string("group_header", 20),
           group_footer=random_string("group_footer", 20)
           )
-    for i in range(n)
+    for i in range(5)
 ]
 
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)

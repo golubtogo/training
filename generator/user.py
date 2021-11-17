@@ -80,7 +80,7 @@ testdata = [User(firstname="", middlename="", lastname="", nickname="",
                           ayear=random_year(4), amonth=random_month(), aday=random_day(),
                           address2=random_string("secondary address", 10), phone2=random_string("+123456789", 5),
                           notes=random_string("hello", 10), new_group="")
-                     for i in range(1)
+                     for i in range(5)
                  ]
 
 
