@@ -36,22 +36,18 @@ class UserHelper:
         if user.bmonth:
             wd.find_element_by_name("bmonth").click()
             Select(wd.find_element_by_name("bmonth")).select_by_visible_text(user.bmonth)
-#            wd.find_element_by_xpath("//select[2]/option[2]").click()
 
         if user.bday:
             wd.find_element_by_name("bday").click()
             Select(wd.find_element_by_name("bday")).select_by_visible_text(user.bday)
-#            wd.find_element_by_xpath("//option[3]").click()
 
         if user.amonth:
             wd.find_element_by_name("amonth").click()
             Select(wd.find_element_by_name("amonth")).select_by_visible_text(user.amonth)
-#            wd.find_element_by_xpath("//select[4]/option[3]").click()
 
         if user.aday:
             wd.find_element_by_name("aday").click()
             Select(wd.find_element_by_name("aday")).select_by_visible_text(user.aday)
-#            wd.find_element_by_xpath("//select[3]/option[3]").click()
 
         if user.new_group:
             wd.find_element_by_name("new_group").click()
@@ -89,9 +85,6 @@ class UserHelper:
         wd = self.app.wd
         self.open_home_page()
         self.select_user_by_id(id)
-        # open modification form
-        wd.find_elements_by_xpath("//img[@alt='Edit'][id='%s']" % id).click()
-        # wd.find_element_by_name("edit").click()
         self.fill_user_form(new_user_data)
         self.update()
         self.return_to_home_page()
@@ -99,7 +92,7 @@ class UserHelper:
 
     def return_to_home_page(self):
         wd = self.app.wd
-        wd.find_element_by_link_text("home page").click()
+        wd.find_element_by_link_text("home").click()
 
     def select_user_by_index(self, index):
         wd = self.app.wd
@@ -107,7 +100,7 @@ class UserHelper:
 
     def select_user_by_id(self, id):
         wd = self.app.wd
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        wd.find_element_by_xpath("//a[@href='edit.php?id=%s']" % id).click()
 
     def delete_first_user(self):
         self.delete_user_by_index(0)
@@ -129,7 +122,8 @@ class UserHelper:
         self.select_user_by_id(id)
         # delete selected user
         wd.find_element_by_xpath("//input[@value='Delete']").click()
-        wd.switch_to_alert().accept()
+        # wd.switch_to_alert().accept()
+        # wd.find_element_by_css_selector("div.msgbox")
         self.user_cache = None
 
     def submit(self):

@@ -1,4 +1,4 @@
-
+import time
 from model.user import User
 
 
@@ -6,8 +6,8 @@ def test_add_new_user(app, db, json_users, check_ui):
     user = json_users
     old_users = db.get_user_list()
     user_id = app.user.create_user(user)
-    assert len(old_users) + 1 == app.user.count()
     user.id = user_id
+    time.sleep(2)
     new_users = db.get_user_list()
     old_users.append(user)
     assert old_users == new_users

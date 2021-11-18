@@ -28,14 +28,18 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-def random_year(maxlen):
-    symbols = string.ascii_letters + string.digits
-    return [random.choice(symbols) for i in range(random.randrange(maxlen))]
-
+# def random_year(maxlen):
+#     symbols = string.ascii_letters
+#     return [random.choice(symbols) for i in range(random.randrange(maxlen))]
 
 def random_day():
     day = random.choice(range(1, 31))
     return str(day)
+
+
+def random_year():
+    year = random.choice(range(1900, 2022))
+    return str(year)
 
 
 def random_month():
@@ -64,10 +68,10 @@ testdata = [User(firstname="", middlename="", lastname="", nickname="",
                        home="", mobile="", work="", fax="",
                        email="", email2="", email3="", homepage="",
                        byear="", bmonth="", bday="", ayear="", amonth="", aday="",
-                       address2="", phone2="", notes="", new_group="")] + [
-                     User(firstname=random_string("firstname", 5), middlename=random_string("middlename", 5),
+                       address2="", phone2="", notes="", new_group="")] + \
+           [User(firstname=random_string("firstname", 5), middlename=random_string("middlename", 5),
                           lastname=random_string("lastname", 5), nickname=random_string("nickname", 5),
-                          photo=os.path.dirname(os.path.abspath(__file__)).replace("generator", "") + "images\\test_image.png",
+                          photo=os.path.dirname(os.path.abspath(__file__)).replace("generator", "") + "images/test_image.png",
                           title=random_string("title", 10),
                           company=random_string("company", 5), address=random_string("address\n+380111111111", 10),
                           home=random_string("+123456", 5), mobile=random_string("+1234567", 5),
@@ -76,14 +80,12 @@ testdata = [User(firstname="", middlename="", lastname="", nickname="",
                           email2=random_string("email-2+@gmail.com", 10),
                           email3=random_string("email-3+@gmail.com", 10),
                           homepage=random_string("homepage", 5),
-                          byear=random_year(4), bmonth=random_month(), bday=random_day(),
-                          ayear=random_year(4), amonth=random_month(), aday=random_day(),
+                          byear=random_year(), bmonth=random_month(), bday=random_day(),
+                          ayear=random_year(), amonth=random_month(), aday=random_day(),
                           address2=random_string("secondary address", 10), phone2=random_string("+123456789", 5),
                           notes=random_string("hello", 10), new_group="")
                      for i in range(5)
                  ]
-
-
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 
