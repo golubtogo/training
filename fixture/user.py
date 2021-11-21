@@ -89,6 +89,7 @@ class UserHelper:
         self.update()
         self.return_to_home_page()
         self.user_cache = None
+        time.sleep(5)
 
     def return_to_home_page(self):
         wd = self.app.wd
