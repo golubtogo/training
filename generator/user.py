@@ -28,10 +28,6 @@ def random_string(prefix, maxlen):
     return prefix + "".join([random.choice(symbols) for i in range(random.randrange(maxlen))])
 
 
-# def random_year(maxlen):
-#     symbols = string.ascii_letters
-#     return [random.choice(symbols) for i in range(random.randrange(maxlen))]
-
 def random_day():
     day = random.choice(range(1, 31))
     return str(day)
@@ -49,18 +45,8 @@ def random_month():
     return month
 
 
-# def remove_whitespaces(user):
-#     user.lastname = user.lastname.strip()
-#     user.firstname = user.firstname.strip()
-#     user.home = user.home.strip()
-#     user.mobile = user.mobile.strip()
-#     user.work = user.work.strip()
-#     user.phone2 = user.phone2.strip()
-#     user.email = user.email.strip()
-#     user.email2 = user.email2.strip()
-#     user.email3 = user.email3.strip()
-#     user.address = user.address.strip()
-
+img = "test_image.png"
+image = os.path.join(os.path.dirname(os.path.abspath(__file__)), img)
 
 testdata = [User(firstname="", middlename="", lastname="", nickname="",
                        photo="", title="",
@@ -71,7 +57,7 @@ testdata = [User(firstname="", middlename="", lastname="", nickname="",
                        address2="", phone2="", notes="", new_group="")] + \
            [User(firstname=random_string("firstname", 5), middlename=random_string("middlename", 5),
                           lastname=random_string("lastname", 5), nickname=random_string("nickname", 5),
-                          photo=os.path.dirname(os.path.abspath(__file__)).replace("generator", "") + "images\\test_image.png",
+                          photo=image,
                           title=random_string("title", 10),
                           company=random_string("company", 5), address=random_string("address\n+380111111111", 10),
                           home=random_string("+123456", 5), mobile=random_string("+1234567", 5),
@@ -86,6 +72,7 @@ testdata = [User(firstname="", middlename="", lastname="", nickname="",
                           notes=random_string("hello", 10), new_group="")
                      for i in range(5)
                  ]
+
 file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
 
 

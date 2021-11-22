@@ -4,7 +4,7 @@ import random
 
 
 def test_modify_group_name(app, db, check_ui):
-    group_name_input = "345"
+    group_name_input = "2233"
     if app.group.count() == 0:
         app.group.create_group(Group(group_name=group_name_input))
     old_groups = db.get_group_list()
@@ -14,9 +14,10 @@ def test_modify_group_name(app, db, check_ui):
     time.sleep(1)
     new_groups = db.get_group_list()
     assert len(old_groups) == len(new_groups)
-    for new_group in new_groups:
+    for new_group in old_groups:
         if new_group.id == group.id:
-            assert new_group.group_name == group_name_input
+            new_group.group_name = group_name_input
+    assert sorted(new_groups, key=Group.id_or_max) == sorted(old_groups, key=Group.id_or_max)
     if check_ui:
         assert sorted(new_groups, key=Group.id_or_max) == sorted(app.group.get_group_list(), key=Group.id_or_max)
 

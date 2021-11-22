@@ -1,4 +1,5 @@
 import re
+from model.user import User
 
 
 def test_phones_on_home_page(app):
@@ -16,6 +17,13 @@ def test_all_data_on_home_page(app):
     assert user_from_home_page.address == user_from_edit_page.address
     assert user_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(user_from_edit_page)
     assert user_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(user_from_edit_page)
+
+
+def test_all_data_all_users_on_home_page(app, db):
+    users_from_home_page = app.user.get_user_list()
+    users_from_db = db.get_user_list()
+    assert len(users_from_db) == len(users_from_home_page)
+    assert sorted(users_from_db, key=User.id_or_max) == sorted(users_from_home_page, key=User.id_or_max)
 
 
 def merge_address_like_on_home_page(user):

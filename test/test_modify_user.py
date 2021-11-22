@@ -15,10 +15,11 @@ def test_modify_some_user(app, db, check_ui):
     time.sleep(1)
     new_users = db.get_user_list()
     assert len(old_users) == len(new_users)
-    for new_user in new_users:
+    for new_user in old_users:
         if new_user.id == user.id:
-            assert new_user.firstname == firstname_input
-            assert new_user.lastname == lastname_input
+            new_user.firstname = firstname_input
+            new_user.lastname = lastname_input
+    assert sorted(old_users, key=User.id_or_max) == sorted(new_users, key=User.id_or_max)
 
     def clean(user):
         return User(id=user.id, lastname=user.lastname.strip(), firstname=user.firstname.strip())
