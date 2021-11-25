@@ -21,14 +21,23 @@ def test_all_data_on_home_page(app):
 
 def test_all_data_all_users_on_home_page(app, db):
     users_from_home_page = app.user.get_user_list()
-    users_from_db = db.get_user_list()
+    users_from_db = db.get_all_user_list()
     assert len(users_from_db) == len(users_from_home_page)
-    assert sorted(users_from_db, key=User.id_or_max) == sorted(users_from_home_page, key=User.id_or_max)
+    list_id = {}
+    for user in users_from_home_page:
+        list_id.setdefault(user.id, user)
+    for user_from_db in users_from_db:
+        user_from_home_page = list_id[user_from_db.id]
+        assert user_from_home_page.firstname == user_from_db.firstname
+        assert user_from_home_page.lastname == user_from_db.lastname
+        assert user_from_home_page.address == merge_address_like_on_home_page(user_from_db)
+        assert user_from_home_page.all_phones_from_home_page == merge_phones_like_on_home_page(user_from_db)
+        assert user_from_home_page.all_emails_from_home_page == merge_emails_like_on_home_page(user_from_db)
 
 
 def merge_address_like_on_home_page(user):
     return "\n".join(filter(lambda x: x != "",
-                            map(lambda x: clear(x),
+                            map(lambda x: clear_address(x),
                                 filter(lambda x: x is not None,
                                 [user.address]))))
 
@@ -53,6 +62,11 @@ def clear(s):
 
 def clear_email(s):
     return re.sub("[ ]", "", s)
+
+
+def clear_address(s):
+    return re.sub("[\r() -]", "", s)
+
 
 
 # def test_phones_on_user_view_page(app):
