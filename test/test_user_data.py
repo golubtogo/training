@@ -65,7 +65,7 @@ def clear_email(s):
 
 
 def clear_address(s):
-    return re.sub("[\r() -]", "", s)
+    return re.sub("[\r]", "", s)
 
 
 
