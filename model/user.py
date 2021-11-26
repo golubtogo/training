@@ -63,5 +63,3 @@ class User:
         else:
             return maxsize
 
-    def id_sort(self):
-        return int(self.id)

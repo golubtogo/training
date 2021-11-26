@@ -20,8 +20,26 @@ db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 # finally:
 #     pass #db.destroy()
 
+# try:
+#     l = db.get_users_in_group(Group(id="728"))
+#     for item in l:
+#         print(item)
+#     print(len(l))
+# finally:
+#     pass
+
+
+# try:
+#     l = db.get_users_not_in_group(Group(id="728"))
+#     for item in l:
+#         print(item)
+#     print(len(l))
+# finally:
+#     pass
+
+
 try:
-    l = db.get_users_in_group(Group(id=534))
+    l = db.get_users_in_group(Group(id="751"))
     for item in l:
         print(item)
     print(len(l))
@@ -29,11 +47,4 @@ finally:
     pass
 
 
-try:
-    l = db.get_users_not_in_group(Group(id=534))
-    for item in l:
-        print(item)
-    print(len(l))
-finally:
-    pass
 

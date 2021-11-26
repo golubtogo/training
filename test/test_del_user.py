@@ -17,4 +17,4 @@ def test_delete_some_user(app, db, check_ui):
     old_users.remove(user)
     assert old_users == new_users
     if check_ui:
-        assert sorted(new_users, key=User.id_or_max) == sorted(app.user.get_user_list(), key=User.id_or_max)
+        assert sorted(new_users) == sorted(app.user.get_user_list(), key=User.id_or_max)
