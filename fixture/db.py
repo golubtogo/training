@@ -59,6 +59,7 @@ class DbFixture:
         self.connection.close()
 
     def get_address_in_groups_list(self):
+
         list = []
         cursor = self.connection.cursor()
         try:
@@ -76,7 +77,7 @@ class DbFixture:
         try:
             cursor.execute("select id from address_in_groups where group_id = group_id ")
             for row in cursor:
-                (id) = row
+                id = row
                 list.append(f"{id}")
         finally:
             cursor.close()
