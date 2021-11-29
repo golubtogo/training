@@ -29,13 +29,13 @@ db = ORMFixture(host="127.0.0.1", name="addressbook", user="root", password="")
 #     pass
 
 
-# try:
-#     l = db.get_users_not_in_group(Group(id="728"))
-#     for item in l:
-#         print(item)
-#     print(len(l))
-# finally:
-#     pass
+try:
+    l = db.get_users_not_in_group(Group(id="728"))
+    for item in l:
+        print(item)
+    print(len(l))
+finally:
+    pass
 
 
 try:

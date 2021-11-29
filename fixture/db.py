@@ -58,41 +58,6 @@ class DbFixture:
     def destroy(self):
         self.connection.close()
 
-    def get_address_in_groups_list(self):
 
-        list = []
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute("select group_id, id from address_in_groups where deprecated='0000-00-00 00:00:00'")
-            for row in cursor:
-                (group_id, id) = row
-                list.append(f"{group_id}:{id}")
-        finally:
-            cursor.close()
-        return list
-
-    def get_address_in_groups_list_id(self, group_id):
-        list = []
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute("select id from address_in_groups where group_id = group_id ")
-            for row in cursor:
-                id = row
-                list.append(f"{id}")
-        finally:
-            cursor.close()
-        return list
-
-    def get_address_in_groups(self):
-        list = []
-        cursor = self.connection.cursor()
-        try:
-            cursor.execute("select group_id, id from address_in_groups where deprecated='0000-00-00 00:00:00'")
-            for row in cursor:
-                (group_id, id) = row
-                list.append(AddressInGroup(group_id, id))
-        finally:
-            cursor.close()
-        return list
 
 

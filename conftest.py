@@ -5,6 +5,7 @@ import pytest
 import jsonpickle
 from fixture.application import Application
 from fixture.db import DbFixture
+from fixture.orm import ORMFixture
 
 fixture = None
 target = None
@@ -35,10 +36,20 @@ def app(request):
 def db(request):
     db_config = load_config(request.config.getoption("--target"))['db']
     dbfixture = DbFixture(host=db_config["host"], name=db_config['name'], user=db_config['user'], password=db_config['password'])
+
     def fin():
         dbfixture.destroy()
     request.addfinalizer(fin)
     return dbfixture
+
+
+@pytest.fixture(scope="session")
+def orm(request):
+    db_config = load_config(request.config.getoption("--target"))['db']
+    ormfixture = ORMFixture(host=db_config["host"], name=db_config['name'],
+                            user=db_config['user'], password=db_config['password'])
+    return ormfixture
+
 
 
 @pytest.fixture
@@ -62,6 +73,7 @@ def pytest_addoption(parser):
 
 
 def pytest_generate_tests(metafunc):
+
     for fixture in metafunc.fixturenames:
         if fixture.startswith("data_"):
             testdata = load_from_module(fixture[5:])

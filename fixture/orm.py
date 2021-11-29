@@ -12,9 +12,9 @@ class ORMFixture:
     class ORMGroup(db.Entity):
         _table_ = 'group_list'
         id = PrimaryKey(int, column='group_id')
-        name = Optional(str, column='group_name')
-        header = Optional(str, column='group_header')
-        footer = Optional(str, column='group_footer')
+        group_name = Optional(str, column='group_name')
+        group_header = Optional(str, column='group_header')
+        group_footer = Optional(str, column='group_footer')
         users = Set(lambda: ORMFixture.ORMUser, table="address_in_groups", column="id", reverse="groups", lazy=True)
 
     class ORMUser(db.Entity):
@@ -40,6 +40,10 @@ class ORMFixture:
     def get_group_list(self):
         return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
 
+    @db_session
+    def get_group_list_by_name(self, group):
+        return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if g.group_name == group.group_name))
+
     def convert_users_to_model(self, users):
         def convert(user):
             return User(id=str(user.id), firstname=user.firstname, lastname=user.lastname)
@@ -49,10 +53,12 @@ class ORMFixture:
     def get_user_list(self):
         return self.convert_users_to_model(select(u for u in ORMFixture.ORMUser if u.deprecated is None))
 
+
     @db_session
     def get_users_in_group(self, group):
         orm_group = list(select(g for g in ORMFixture.ORMGroup if g.id == group.id))[0]
-        return self.convert_users_to_model(orm_group.users)
+        return self.convert_users_to_model(
+            select(u for u in ORMFixture.ORMUser if u.deprecated is None and orm_group in u.groups))
 
     @db_session
     def get_users_not_in_group(self, group):
@@ -60,4 +66,8 @@ class ORMFixture:
         return self.convert_users_to_model(
             select(u for u in ORMFixture.ORMUser if u.deprecated is None and orm_group not in u.groups))
 
-
+    @db_session
+    def get_groups_without_user(self, user):
+        orm_user = list(select(g for g in ORMFixture.ORMUser if g.id == user.id))[0]
+        return self.convert_groups_to_model(
+            select(g for g in ORMFixture.ORMGroup if orm_user not in g.users))

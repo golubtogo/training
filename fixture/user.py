@@ -1,11 +1,7 @@
 import re
 import time
-
 from selenium.webdriver.support.ui import Select
-
-from model.group import Group
 from model.user import User
-import random
 
 
 class UserHelper:
@@ -26,15 +22,6 @@ class UserHelper:
         self.open_home_page()
         self.init_user_creation()
         self.fill_user_form(user)
-        self.submit()
-        self.return_to_home_page()
-        self.user_cache = None
-
-    def create_user_in_group(self, user):
-        self.open_home_page()
-        self.init_user_creation()
-        self.fill_user_form(user)
-        self.fill_user_form_select_group(user)
         self.submit()
         self.return_to_home_page()
         self.user_cache = None
@@ -74,12 +61,6 @@ class UserHelper:
                 wd.find_element_by_name(label).click()
                 wd.find_element_by_name(label).clear()
                 wd.find_element_by_name(label).send_keys(value)
-
-    def fill_user_form_select_group(self, user):
-        if user.new_group:
-            wd = self.app.wd
-            wd.find_element_by_name("new_group").click()
-            Select(wd.find_element_by_name("new_group")).select_by_visible_text("group1")
 
     def fill_user_form(self, user):
         self.change_field_value(user)
@@ -223,25 +204,23 @@ class UserHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return User(home=home, mobile=mobile, work=work, phone2=phone2)
 
-    def add_user_to_group_by_id(self, id):
+    def add_user_to_group_by_id(self, id, group_name):
         wd = self.app.wd
         self.app.open_home_page()
         self.select_user_by_id_checkbox(id)
-        wd.find_element_by_xpath("//form[@id='right']/select/option[1]")
+        Select(wd.find_element_by_name("to_group")).select_by_visible_text(group_name)
         self.submit_add_user_to_group()
 
     def submit_add_user_to_group(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//input[@value='Add to']").click()
         time.sleep(1)
-        # self.open_group_page_selected_group()
         time.sleep(1)
 
     def open_group_page_selected_group(self):
         wd = self.app.wd
         wd.find_element_by_xpath("//a[contains(text(), 'group page')]").click()
         time.sleep(1)
-        # self.app.open_home_page()
 
     def select_group(self):
         wd = self.app.wd
@@ -250,13 +229,13 @@ class UserHelper:
         wd.find_element_by_xpath("//option[3]").click()
         time.sleep(5)
 
-    def delete_user_from_group_by_id(self, id):
+    def delete_user_from_group_by_id(self, id, group_name):
         wd = self.app.wd
-        self.select_user_by_id_checkbox(id)
-        time.sleep(1)
+        self.app.open_home_page()
+        Select(wd.find_element_by_name("group")).select_by_visible_text(group_name)
+        wd.find_element_by_css_selector("input[value='%s']" % id).click()
         wd.find_element_by_xpath("//input[@name='remove']").click()
-        time.sleep(1)
-        # self.app.open_home_page()
+        self.app.open_home_page()
         self.user_cache = None
 
     def open_link_selected_group(self):
