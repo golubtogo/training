@@ -5,7 +5,7 @@ import os.path
 import jsonpickle
 import getopt
 import sys
-
+import platform
 try:
     opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
 except getopt.GetoptError as err:
@@ -13,7 +13,8 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 n = 5
-f = "data/groups.json"
+back_slash = "\\" if platform.system() == "Windows" else "/"
+f = f"data{back_slash}groups.json"
 
 for o, a in opts:
     if o == "-n":
