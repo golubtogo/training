@@ -5,7 +5,7 @@ import os
 import jsonpickle
 import getopt
 import sys
-
+import platform
 
 try:
     opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of users", "file"])
@@ -14,7 +14,8 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 n = 5
-f = "data/users.json"
+back_slash = "\\" if platform.system() == "Windows" else "/"
+f = f"data{back_slash}users.json"
 
 for o, a in opts:
     if o == "-n":
