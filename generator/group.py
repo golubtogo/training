@@ -5,7 +5,7 @@ import os.path
 import jsonpickle
 import getopt
 import sys
-import platform
+
 try:
     opts, args = getopt.getopt(sys.argv[1:], "n:f:", ["number of groups", "file"])
 except getopt.GetoptError as err:
@@ -13,8 +13,8 @@ except getopt.GetoptError as err:
     sys.exit(2)
 
 n = 5
-back_slash = "\\" if platform.system() == "Windows" else "/"
-f = f"data{back_slash}groups.json"
+
+f = f"groups.json"
 
 for o, a in opts:
     if o == "-n":
@@ -36,7 +36,7 @@ testdata = [
     for i in range(5)
 ]
 
-file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", f)
+file = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "data", f)
 
 with open(file, "w") as out:
     jsonpickle.set_encoder_options("json", indent=2)

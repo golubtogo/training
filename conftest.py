@@ -89,8 +89,7 @@ def load_from_module(module):
 
 
 def load_from_json(file):
-    back_slash = "\\" if platform.system() == "Windows" else "/"
-    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), f"data{back_slash}%s.json" % file)) as f:
+    with open(os.path.join(os.path.dirname(os.path.abspath(__file__)), "data", f"{file}.json")) as f:
         return jsonpickle.decode(f.read())
 
 
