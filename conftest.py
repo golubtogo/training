@@ -1,5 +1,5 @@
 import json
-import os.path
+import os
 import importlib
 import pytest
 import jsonpickle

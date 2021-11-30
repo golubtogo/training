@@ -3,3 +3,4 @@ geckodriver.log
 .idea
 __pycache__
 geckodriver.exe
+.pytest_cache
