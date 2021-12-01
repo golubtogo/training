@@ -215,7 +215,6 @@ class UserHelper:
         wd = self.app.wd
         wd.find_element_by_xpath("//input[@value='Add to']").click()
         time.sleep(1)
-        time.sleep(1)
 
     def open_group_page_selected_group(self):
         wd = self.app.wd
@@ -227,7 +226,6 @@ class UserHelper:
         self.app.open_home_page()
         wd.find_element_by_name("group").click()
         wd.find_element_by_xpath("//option[3]").click()
-        time.sleep(5)
 
     def delete_user_from_group_by_id(self, id):
         wd = self.app.wd

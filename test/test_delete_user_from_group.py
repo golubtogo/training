@@ -4,9 +4,8 @@ import random
 
 
 def test_delete_user_from_group(app, orm):
-    group_name = "group1"
     if len(orm.get_group_list()) == 0:
-        app.group.create_group(Group(group_name=group_name))
+        app.group.create_group(Group(group_name="group1"))
     app.user.select_group()
     group_id = app.user.get_group_id(id)
     group_id = int(group_id)
