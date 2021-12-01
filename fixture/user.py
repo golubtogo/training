@@ -204,11 +204,11 @@ class UserHelper:
         phone2 = re.search("P: (.*)", text).group(1)
         return User(home=home, mobile=mobile, work=work, phone2=phone2)
 
-    def add_user_to_group_by_id(self, id, group_name):
+    def add_user_to_group_by_id(self, id):
         wd = self.app.wd
         self.app.open_home_page()
         self.select_user_by_id_checkbox(id)
-        Select(wd.find_element_by_name("to_group")).select_by_visible_text(group_name)
+        wd.find_element_by_xpath("//form[@id='right']/select/option[1]")
         self.submit_add_user_to_group()
 
     def submit_add_user_to_group(self):
@@ -229,13 +229,10 @@ class UserHelper:
         wd.find_element_by_xpath("//option[3]").click()
         time.sleep(5)
 
-    def delete_user_from_group_by_id(self, id, group_name):
+    def delete_user_from_group_by_id(self, id):
         wd = self.app.wd
-        self.app.open_home_page()
-        Select(wd.find_element_by_name("group")).select_by_visible_text(group_name)
-        wd.find_element_by_css_selector("input[value='%s']" % id).click()
+        self.select_user_by_id_checkbox(id)
         wd.find_element_by_xpath("//input[@name='remove']").click()
-        self.app.open_home_page()
         self.user_cache = None
 
     def open_link_selected_group(self):

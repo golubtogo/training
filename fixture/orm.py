@@ -41,6 +41,10 @@ class ORMFixture:
         return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup))
 
     @db_session
+    def get_group_list_by_id(self, group):
+        return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if g.id == group.id))
+
+    @db_session
     def get_group_list_by_name(self, group):
         return self.convert_groups_to_model(select(g for g in ORMFixture.ORMGroup if g.group_name == group.group_name))
 
@@ -52,7 +56,6 @@ class ORMFixture:
     @db_session
     def get_user_list(self):
         return self.convert_users_to_model(select(u for u in ORMFixture.ORMUser if u.deprecated is None))
-
 
     @db_session
     def get_users_in_group(self, group):
