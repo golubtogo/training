@@ -242,3 +242,15 @@ class UserHelper:
         wd = self.app.wd
         return wd.find_element_by_xpath("//input[@name='group']").get_attribute("value")
 
+    def compare_users(self, old_users, user, firstname_input, lastname_input):
+        for new_user in old_users:
+            if new_user.id == user.id:
+                new_user.firstname = firstname_input
+                new_user.lastname = lastname_input
+
+    def compare_users_from_db_and_home_page(self, users_from_home_page, users_from_db, user_from_home_page):
+        list_id = {}
+        for user in users_from_home_page:
+            list_id.setdefault(user.id, user)
+        for user_from_db in users_from_db:
+            user_from_home_page = list_id[user_from_db.id]

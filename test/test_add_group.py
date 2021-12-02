@@ -17,10 +17,11 @@ def test_add_group(app, db, json_groups, check_ui):
         assert new_groups == old_groups
         ui_groups = app.group.get_group_list()
         if check_ui:
-            def clean(group):
-                return Group(id=group.id, group_name=group.group_name.strip())
-            new_groups = map(clean, db.get_group_list())
-            assert sorted(new_groups, key=Group.id_or_max) == sorted(ui_groups, key=Group.id_or_max)
+            with allure.step('Also check UI'):
+                def clean(group):
+                    return Group(id=group.id, group_name=group.group_name.strip())
+                new_groups = map(clean, db.get_group_list())
+                assert sorted(new_groups, key=Group.id_or_max) == sorted(ui_groups, key=Group.id_or_max)
 
 
 

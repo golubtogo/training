@@ -125,3 +125,7 @@ class GroupHelper:
                 self.group_cache.append(Group(group_name=text, id=id))
         return list(self.group_cache)
 
+    def compare_groups(self, old_groups, group, group_name_input):
+        for new_group in old_groups:
+            if new_group.id == group.id:
+                new_group.group_name = group_name_input

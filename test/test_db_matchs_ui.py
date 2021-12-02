@@ -1,9 +1,11 @@
 from model.group import Group
 from model.user import User
+import allure
 
 
 def test_group_list(app, db):
-    ui_list = app.group.get_group_list()
+    with allure.step('Given a group list'):
+        ui_list = app.group.get_group_list()
 
     def clean(group):
         return Group(id=group.id, group_name=group.group_name.strip())
@@ -12,7 +14,8 @@ def test_group_list(app, db):
 
 
 def test_user_list(app, db):
-    ui_list = app.user.get_user_list()
+    with allure.step('Given a user list'):
+        ui_list = app.user.get_user_list()
 
     def clean(user):
         return User(id=user.id, lastname=user.lastname.strip(), firstname=user.firstname.strip())
