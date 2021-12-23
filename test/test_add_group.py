@@ -24,7 +24,6 @@ def test_add_group(app, db, json_groups, check_ui):
                 assert sorted(new_groups, key=Group.id_or_max) == sorted(ui_groups, key=Group.id_or_max)
 
 
-
 # @pytest.mark.parametrize("group", testdata, ids=[repr(x) for x in testdata])
 # def test_add_group(app, group):
 #     old_groups = app.group.get_group_list()

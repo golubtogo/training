@@ -6,5 +6,6 @@ PyMySQL~=1.0.2
 pony~=0.7.14
 jsonpickle~=2.0.0
 
-lxml-4.6.4-cp38-cp38-win_amd64.whl
+
+lxml-4.7.1-cp39-cp39-macosx_10_14_x86_64.whl
 pytest-allure-adaptor
